@@ -1,32 +1,37 @@
 #include "main.h"
-/**
- * fill_hex_array - writes the character c to stdout
- *
- * @bnr: array where is stored the binary.
- * @hex: array where is stored the hexadecimal.
- * @isupp: integer that determines if the hexadecimal array is
- * in uppercase or lowercase letter.
- * @limit: size of hex
- * Return: binary array.
- */
-char *fill_hex_array(char *bnr, char *hex, int isupp, int limit)
-{
-	int c, a, b, test;
 
-	hex[limit] = '\0';
-	if (isupp)
-		test = 55;
-	else
-		test = 87;
-	for (a = (limit * 4) - 1; a >= 0; a--)
+/**
+ * fill_binary_array - prints decimal in binary
+ * @binary: pointer to binary
+ * @int_in: input number
+ * @isneg: if input number is negative
+ * @limit: size of the binary
+ * Return: number of chars printed.
+ */
+char *fill_binary_array(char *binary, long int int_in, int isneg, int limit)
+{
+	int i;
+
+	for (i = 0; i < limit; i++)
+		binary[i] = '0';
+	binary[limit] = '\0';
+	for (i = limit - 1; int_in > 1; i--)
 	{
-		for (c = 0, b = 1; b <= 8; b *= 2, a--)
-			c = ((bnr[a] - '0') * b) + c;
-		a++;
-		if (c < 10)
-			hex[a / 4] = c + 48;
+		if (int_in == 2)
+			binary[i] = '0';
 		else
-			hex[a / 4] = c + test;
+			binary[i] = (int_in % 2) + '0';
+		int_in /= 2;
 	}
-	return (hex);
+	if (int_in != 0)
+		binary[i] = '1';
+	if (isneg)
+	{
+		for (i = 0; binary[i]; i++)
+			if (binary[i] == '0')
+				binary[i] = '1';
+			else
+				binary[i] = '0';
+	}
+	return (binary);
 }

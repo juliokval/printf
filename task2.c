@@ -1,37 +1,51 @@
 #include "main.h"
 
 /**
- * fill_binary_array - prints decimal in binary
- * @binary: pointer to binary
- * @int_in: input number
- * @isneg: if input number is negative
- * @limit: size of the binary
- * Return: number of chars printed.
+ * ev_print_func - returns the amount of identifiers.
+ * @s: argument indentifier
+ * @index: index of argument identifier.
+ * Return: amount of identifiers.
  */
-char *fill_binary_array(char *binary, long int int_in, int isneg, int limit)
+int ev_print_func(const char *s, int index)
 {
-	int a;
+	print_t pr[] = {
+		{"c", print_chr}, {"s", print_str}, {"i", print_int},
+		{"d", print_int}, {"b", print_bnr}, {"u", print_unt},
+		{"o", print_oct}, {"x", print_hex}, {"X", print_upx},
+		{"S", print_usr}, {"p", print_add}, {"li", prinlint},
+		{"ld", prinlint}, {"lu", prinlunt}, {"lo", prinloct},
+		{"lx", prinlhex}, {"lX", prinlupx}, {"hi", prinhint},
+		{"hd", prinhint}, {"hu", prinhunt}, {"ho", prinhoct},
+		{"hx", prinhhex}, {"hX", prinhupx}, {"#o", prinnoct},
+		{"#x", prinnhex}, {"#X", prinnupx}, {"#i", print_int},
+		{"#d", print_int}, {"#u", print_unt}, {"+i", prinpint},
+		{"+d", prinpint}, {"+u", print_unt}, {"+o", print_oct},
+		{"+x", print_hex}, {"+X", print_upx}, {" i", prinsint},
+		{" d", prinsint}, {" u", print_unt}, {" o", print_oct},
+		{" x", print_hex}, {" X", print_upx}, {"R", print_rot},
+		{"r", print_rev}, {"%", print_prg}, {"l", print_prg},
+		{"h", print_prg}, {" +i", prinpint}, {" +d", prinpint},
+		{"+ i", prinpint}, {"+ d", prinpint}, {" %", print_prg},
+		{NULL, NULL},
+	};
+	int i = 0, j = 0, first_index;
 
-	for (a = 0; a < limit; a++)
-		binary[a] = '0';
-	binary[limit] = '\0';
-	for (a = limit - 1; int_in > 1; a--)
+	first_index = index;
+	while (pr[i].type_arg)
 	{
-		if (int_in == 2)
-			binary[a] = '0';
-		else
-			binary[a] = (int_in % 2) + '0';
-		int_in /= 2;
-	}
-	if (int_in != 0)
-		binary[a] = '1';
-	if (isneg)
-	{
-		for (a = 0; binary[a]; a++)
-			if (binary[a] == '0')
-				binary[a] = '1';
+		if (s[index] == pr[i].type_arg[j])
+		{
+			if (pr[i].type_arg[j + 1] != '\0')
+				index++, j++;
 			else
-				binary[a] = '0';
+				break;
+		}
+		else
+		{
+			j = 0;
+			i++;
+			index = first_index;
+		}
 	}
-	return (binary);
+	return (j);
 }
