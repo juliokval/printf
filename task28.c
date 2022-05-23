@@ -1,41 +1,39 @@
 #include "main.h"
 
 /**
- * print_rot - writes the str in ROT13
+ * prinhint - prints a short integer
  * @arguments: input string
  * @buf: buffer pointer
  * @ibuf: index for buffer pointer
  * Return: number of chars printed.
  */
-
-int print_rot(va_list arguments, char *buf, unsigned int ibuf)
+int prinhint(va_list arguments, char *buf, unsigned int ibuf)
 {
-	char alf[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char rot[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	char *str;
-	unsigned int i, j, k;
-	char nill[] = "(avyy)";
+	short int int_input;
+	unsigned short int int_in, int_temp, i, div, isneg;
 
-	str = va_arg(arguments, char *);
-	if (str == NULL)
+	int_input = va_arg(arguments, int);
+	isneg = 0;
+	if (int_input < 0)
 	{
-		for (i = 0; nill[i]; i++)
-			ibuf = handl_buf(buf, nill[i], ibuf);
-		return (6);
+		int_in = int_input * -1;
+		ibuf = handl_buf(buf, '-', ibuf);
+		isneg = 1;
 	}
-	for (i = 0; str[i]; i++)
+	else
 	{
-		for (k = j = 0; alf[j]; j++)
-		{
-			if (str[i] == alf[j])
-			{
-				k = 1;
-				ibuf = handl_buf(buf, rot[j], ibuf);
-				break;
-			}
-		}
-		if (k == 0)
-			ibuf = handl_buf(buf, str[i], ibuf);
+		int_in = int_input;
 	}
-	return (i);
+	int_temp = int_in;
+	div = 1;
+	while (int_temp > 9)
+	{
+		div *= 10;
+		int_temp /= 10;
+	}
+	for (i = 0; div > 0; div /= 10, i++)
+	{
+		ibuf = handl_buf(buf, ((int_in / div) % 10) + '0', ibuf);
+	}
+	return (i + isneg);
 }
