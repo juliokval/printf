@@ -45,7 +45,7 @@ int printint(va_list arguments, char *buf, unsigned int ibuf);
 int printoct(va_list arguments, char *buf, unsigned int ibuf);
 int printhex(va_list arguments, char *buf, unsigned int ibuf);
 int printupx(va_list arguments, char *buf, unsigned int ibuf);
-int printint(va_list arguments, char *buf, unsigned int ibuf);
+int printsint(va_list arguments, char *buf, unsigned int ibuf);
 int (*get_print_func(const char *s, int index))(va_list, char *, unsigned int);
 int ev_print_func(const char *s, int index);
 unsigned int handl_buf(char *buf, char c, unsigned int ibuf);
