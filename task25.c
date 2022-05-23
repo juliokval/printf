@@ -1,38 +1,32 @@
 #include "main.h"
 
 /**
- * printint - print integer with plus symbol
+ * print_rev - writes the str in reverse
  * @arguments: input string
  * @buf: buffer pointer
  * @ibuf: index for buffer pointer
- * Return: number of chars printed
+ * Return: number of chars printed.
  */
-int printint(va_list arguments, char *buf, unsigned int ibuf)
+int print_rev(va_list arguments, char *buf, unsigned int ibuf)
 {
-	int int_input;
-	unsigned int int_in, int_temp, i, div;
+	char *str;
+	unsigned int i;
+	int j = 0;
+	char nill[] = "(llun)";
 
-	int_input = va_arg(arguments, int);
-	if (int_input < 0)
+	str = va_arg(arguments, char *);
+	if (str == NULL)
 	{
-		int_in = int_input * -1;
-		ibuf = handl_buf(buf, '-', ibuf);
+		for (i = 0; nill[i]; i++)
+			ibuf = handl_buf(buf, nill[i], ibuf);
+		return (6);
 	}
-	else
+	for (i = 0; str[i]; i++)
+		;
+	j = i - 1;
+	for (; j >= 0; j--)
 	{
-		int_in = int_input;
-		ibuf = handl_buf(buf, '+', ibuf);
+		ibuf = handl_buf(buf, str[j], ibuf);
 	}
-	int_temp = int_in;
-	div = 1;
-	while (int_temp > 9)
-	{
-		div *= 10;
-		int_temp /= 10;
-	}
-	for (i = 0; div > 0; div /= 10, i++)
-	{
-		ibuf = handl_buf(buf, ((int_in / div) % 10) + '0', ibuf);
-	}
-	return (i + 1);
+	return (i);
 }
