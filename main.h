@@ -40,7 +40,6 @@ int printupx(va_list arguments, char *buf, unsigned int ibuf);
 int printhint(va_list arguments, char *buf, unsigned int ibuf);
 int printhunt(va_list arguments, char *buf, unsigned int ibuf);
 int printoct(va_list arguments, char *buf, unsigned int ibuf);
-int printhex(va_list arguments, char *buf, unsigned int ibuf);
 int printupx(va_list arguments, char *buf, unsigned int ibuf);
 int printint(va_list arguments, char *buf, unsigned int ibuf);
 int printoct(va_list arguments, char *buf, unsigned int ibuf);
